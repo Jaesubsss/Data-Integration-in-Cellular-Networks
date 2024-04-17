@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Network-based prediction of human tissue-specific metabolism &lpar;iMAT&rpar;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="network-based-prediction-of-human-tissue-specific-metabolism-imat">Network-based prediction of human tissue-specific metabolism (iMAT)</h1>
+<p>이 논문의 목표는 인간 조직에서 metabolic behavior를 tissue specific으로 예측하는 것입니다. 이를 위해 게놈 규모의 대사 네트워크 모델을 tissue specific gene expression 및 단백질 풍부도 데이터와 통합하여 사용합니다. 이 방법은 metabolic behavior를 예측하기 위해 대사 네트워크 모델을 tissue specific gene expression 상태와 연결하는 데 사용되는 부울 매핑 방법을 사용합니다. 이를 통해 조직 내 대사 활동을 반영하는 반응의 활성화 상태를 결정합니다. 이 과정에서 부울 변수와 혼합 정수 선형 프로그래밍(MILP)을 사용하여 대사 네트워크의 플럭스 상태를 최적화합니다.</p>
+<p>&quot;metabolic behavior&quot;은 조직이나 생물체에서 발생하는 대사 활동의 특성을 나타냅니다. 이는 대사 네트워크에서 다양한 화학 물질들 간의 상호 작용과 반응을 포함합니다.</p>
+<h2 id="abstract">Abstract</h2>
+<p>포유류 대사의 직접적인 in vivo(생체 내) 조사는 서로 다른 조직의 고유한 대사 기능으로 인해 복잡하다. 우리는 인간 대사의 tissue-specific을 대규모로 성공적으로 기술하는 방법을 제시한다. <strong>tissue-specific gene 및 단백질 expression 데이터를 기존의 global human metabolic network의 comprehensive(포괄적인) reconstruction과 통합</strong>합으로써, 우리는 열 가지 인간 조직에서 <strong>tissue specific metabolic activity를 예측</strong>합니다. 이를 통해 tissue specific metabolic activity profile을 형성하는데 post-transcriptional regulation이 중심적인 역할을 한다는 것을 밝혀낸다. metablic diseases를 담당하는 gene의 tissue-specific 및 biofluid와의 metabolite exchange의 tissue-specific 차이는 획기적으로 특정 조직의 효소 expression 데이터에서 나타나는 tissue-specific 차이를 확장하며, 조직 특기성 데이터의 대규모 mining을 통해 검증되었다. 우리의 결과는 tissue-specific 방식으로 정상 및 비정상적인 인간 대사의 genome research에 대한 computational basis를 확립한다.</p>
+<h2 id="introduction">Introduction</h2>
+<p>생물학적 시스템의 metabolic network modeling은 다양한 생리적 및 유전적 조건 하에서의 metabolic fluxes 분포를 분석하고 예측하는 작업을 포함합니다. 기존의 모델링 기술은 역학적 정보와 효소 및 대사물 농도에 대한 세부 정보를 필요로하는 수학적 접근법에 기반하고 있습니다. 그러나 kinetic constant와 enzyme 및 metabolite의 세포 내 농도에 대한 정보 부족으로 현재 이러한 방법을 소규모 시스템에만 적용할 수 있습니다. constraint based modeling은 이러한 장벽을 우회하여 단순한 물리화학적 constraints만들 의존하여 대규모 metabolic network의 기능을 분석합니다. 최근에는 constraint based modeling이 미생물의 다양한 형질을 성공적으로 예측하는데 자주 사용되었습니다.</p>
+<p>constraint based 모델링을 미생물의 대사에 적용한 진전에도 불구하고, 인간 대사의 대규모 모델링은 여전히 초기 단계에 있습니다. 그러나 diabetes(당뇨병) 및 obesity(비만)과 같은 대사 질환의 발생으로 인하여 인간 대사 및 그 regulation에 대한 연구가 촉진되고 있습니다. 대사 효소 및 그들의 regulators는 이런 질환 및 다른 질환에 대한 유효한 약물 타겟으로 점점 더 고려되고 있습니다.</p>
+<p>그러나 인간 metabolic network를 재구성할때, 이전 작업의 대부분은 distinct 대사 경로를 characterizing하는 데에 초점을 맞추고 있습니다. 대규모 인간 metabolic network의 재구성은 최근에 특정 세포 타입 및 특정 세포 기관에 대해서만 수행되었습니다. 비교적 최근에는 global human metabolic network에 대한 광범위한 genomic - bibliomic(비문헌적) data에 대한 진화가 있었으나, tissue-specific이지 않습니다.</p>
+<p>미생물의 영역에서 constraint based 모델링 방법을 multicellular organisms로 확장할 때 주요한 두가지 obstacle(장애물)을 마주하게 됩니다.</p>
+<p>첫번째는 서로 다른 조직이 서로 다른 대사 목표를 가지고 있으며, 이는 잘 정의되지 않고 크게 알려지지 않은 상태입니다. 이는 미생물 모델링과 대조적입니다. 미생물 모델링에서는 단순한 objective function을 사용한 FBA를 사용하여 생물학적으로 타당한 플럭스 분포를 예측할 수 있습니다.</p>
+<p>두번째 주요 obstacle은 FBA를 사용하기 위해 필수적인 tissue-specific metabolite uptake and secretion 에 대한 정보의 부족입니다.</p>
+<p>우리는 genome-scale의 metabolic network를 tissue-specific gene 및 단백질 expression 데이터와 통합하여 인간 조직별 대사 특성을 체계적으로 예측하는 새로운 constraint based 컴퓨터적 방법을 제안합니다.</p>
+<p>gene 및 단백질 expression 수준의 변화는 tissue-specific 대사 기능을 통제하는 데 주요한 역할을 하며, 미생물에서는 gene expression과 측정 및 예측된 metabolic fluxes 간에 강한 상관관계가 보고되었습니다.<br>
+<strong>expression 데이터에 반영되지 않는 metabolic fluxes 활동(post-transcriptional regulatory effects)을 고려하기 위해 우리는 효소 expression 수준의 tissue-specific 변화를 효소 활동의 최종 결정 요소로 취급하지 않고, 대신 해당 효소가 연관된 반응에서 metabolic fluxes를 지원한 가능성의 신호로 간주합니다.</strong> Network integration은 이러한 신호를 global하고 consist한 metabolic behavior으로 축적하는데 사용되며, 이는 가정적인 post-transcriptional regulatory effect의 결과를 반영합니다.</p>
+<p>우리의 방법은 tissue-specific metabolic fluxes를 추론하기 위해 효소 expression 데이터에 의존하므로 tissue-specific objective function 및 metabolite에 대한 사전 지식이 필요하지 않습니다. 대신, 이 방법은 tissue-specific metabolite uptake 및 secretion에 대한 예측을 제공합니다.</p>
+<h2 id="result">Result</h2>
+<h3 id="network-based-prediction-of-metabolic-behavior">Network-based prediction of metabolic behavior</h3>
+<p><strong>우리는 유전자 및 단백질 발현 데이터에 반영되지 않는 post-transcriptional regulatory level을 고려하기 위해 효소 발현 수준을 단순히 해당 반응이 대사 플럭스를 운반할 가능성에 대한 신호로 취급합니다.</strong> 우리는 Network integration을 사용하여 이러한 신호를 글로벌하고 일관된 신소로 취급합니다. 이를 위해, 우리는 이전에 다른 목적의 대사 모델링에서 이러한 데이터를 사용했던 것을 따라, 유의미하게 높은 혹은 낮은 효소 발현 수준의 discrete representation을 사용합니다.</p>
+<p>Network integration은 steady state metabolic flux distribution을 constraint based modeling 최적화 문제를 해결함으로써 수행됩니다. 여기에서, 첫째로, 이 모델에 embedded된 stoichiometric and thermodynamic constraints를 만족하고, 둘째로, 예측된 flux activity가 측정된 발현 수준과 일치하는 효소의 수를 최대화 합니다. <strong>다시 말해, 이 방법은 높은 수준으로 발현된 효소와, 연관된 flux-carrying 반응의 수를 최대화 하고, 낮은 수준으로 발현된 유전자와 연관된 flux-carrying 반응의 수를 최소화 하려고 합니다.</strong></p>
+<p>결과적으로 예측된 flux distribution은 유전자와 연관된 enzymatic reaction을 통한 non-zero flux의 존재 혹은 부재를 반영하는 flux activity 상태를 그 유전자에 할당하기 위해 사용됩니다. 일부 유전자의 경우, 그들의 flux activity state는 활성 혹은 비활성으로 고유하게 결정될 수 있으며, 관련된 confidence estimation이 있습니다. 다른 경우에는 유전자의 활성 상태가 유니크하게 결정되지 않을 수 있습니다. 왜냐하면 측정된 발현 수준과, 해당 데이터와 전반적으로 일관된 가능한 대사 플럭스 분포가 동일한 경우가 있기 때문입니다. 발현 수준이 대사 플럭스의 exclusive determinant 요소로 강제되지 않기 때문에, 유전자의 플럭스 활동 상태는 발현 상태에서 벗어날 수 있습니다. 특정 예측된 활동 상태에 대한 예는 Figure 1에 나와 있습니다.</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\imat1.PNG" alt=""></p>
+<pre><code>Figure 1은 metabolic network 모델과 유전자 발현 측정을 기반으로 한 유전자의 플럭스 활동 상태를 예측하는 예시를 보여줍니다. 원형 노드는 대사물질을 나타내고, 다이아몬드 노드는 효소를 나타냅니다. 흰색, 빨강 및 녹색은 각각 효소 인코딩 유전자의 일반적, 유의하게 낮은 및 유의하게 높은 발현을 나타냅니다. 실선은 대사 반응을 나타냅니다. 점선은 효소를 해당 반응과 연결합니다. 예측된 안정된 상태의 플럭스 분포는 활성화된 반응으로 나타내어집니다. 효소 E4는 후전사적으로 상향 조절되고, E7은 후전사적으로 하향 조절된 것으로 예측됩니다.
+</code></pre>
+<p><strong>이 방법은 예측된 플럭스 분포가 어떤 기준 상태와 비교하여 상대적으로 높거나 낮은 수준으로 발현된 유전자의 발현 상태와 일치하는 플럭스 분포를 예측합니다.</strong> 플럭스 예측을 기반으로 두 개의 효소가 post-trancriptional하게 조절된 것으로 예측됩니다. high expressed enzyme E7은 대사 플럭스를 서포트 하지 않는 것으로 예측되어 downregulated으로 간주됩니다. Moderately expressed membrane transporter E4는 metabolic flux를 서포트 하는것으로 예측되었고, 따라서 upregulated로 간주됩니다. 시스템 바운더리를 가로지르는 특정한 exchange reaction을 통해 예측된 플럭스는 티슈로부터의 metabolites의 uptake와 secretion를 나타냅니다. 주변 티슈와 교환될 수 있는 다섯가지 metabolites(M1-2,M7-9) 중에서, 이 방법은 하나의 metabolite(M1)을 흡수하고 두개의 다른 metabolites(M7, M8)을 분비하는것으로 예측합니다. 특히, M1의 막 트랜스포터의 고 발현 수준은 그것이 활성임을 가리킬 수도 있지만, M1이 티슈에서 흡수되는지 아니면 분비되는지에 대한 정보를 제공하진 않습니다. 반면에, intergrated approach는 네트워크 전반에 대한 반응의 reversibility와 방향에 대한 알려진 열역학적 constraints를 프로파게이팅함으로써  많은 반응의 flux의 방향을 결정할 수 있습니다. 현재 예시에서는 활성화된 경로의 방향성이 E3와 E4의 irreversibility를 기반으로 추론됩니다.</p>
+<p>우리 방법의 기본적인 검증으로, 우리는 다양한 성장 매질에서 측정된 유전자 발현 데이터를 기반으로 효모의 metabolic behavior를 예측하기 위해 이를 적용했습니다. 예측된 metabolic behavior를 효모의 central carbon metabolism과 비교하면, 유의미한 상관관계를 보였습니다 (hypergeometric P-value = 0.01). 추가적인 large-scale validation으로, 예측된 플럭스 액티비티 패턴이 명백한 효모의 바이오매스 최대화에 기초한 FBA 예측과 유의한 상관관계를 보였습니다. 비교를 위해 유전자 모델의 반응과 연관된 부분만을 기반으로 한 예측된 플럭스 액티비티는 정확도가 현저히 낮았습니다. 또한 예측된 플럭스 액티비티 패턴은 growth media와의 metabolite exchange의 방향성과 필수적인 바이오매스 precursors의 생산을 FBA분석에 의해 만들어진 예측과 알맞게 정확히 캡쳐합니다. 이는 우리의 방식이 바이오매스 composition(조성)과 대사물질 교환에 대한 정보를 사용하지 않는다는 점에서 주목할만 합니다.</p>
+<h3 id="predicting-human-tissue-specific-metabolism">Predicting human tissue-specific metabolism</h3>
+<p>우리는 metabolic network 모델과 열 가지 조직(brain, heart, kidney, liver, lung, pancreas, prostate, spleen, skeletal muscle, thymus)에서의 유전자-28 및 단백질-29 발현 측정 결과를 기반으로 tissue-specific 행동을 계산했습니다 (부록 데이터 세트 1 온라인 참조). 모델 유전자 중 644개의 활동 상태가 최소한 하나의 조직에서 고유하게 결정되었으며, 평균적으로 조직당 408개의 유전자가 결정된 활동 상태를 갖고 있었습니다 (부록 데이터 세트 2 온라인 참조). <strong>모델의 나머지 유전자들은 모델 내의 오류(죽은 골목 경로에 있는 반응)나 대안적 플럭스 분포의 존재(주로 이소효소 및 대체 경로로 인한 것) 때문에 결정되지 않았습니다.</strong> 특정 조직에서 활성으로 예측된 많은 유전자들이 그곳에서 높은 수준으로 발현되지 않고, 반대로 비활성으로 예측된 많은 유전자들이 낮은 수준으로 발현되지 않음을 확인할 수 있습니다. 이는 대사 유전자 활동을 추론하기 위해 발현 데이터를 metabolic network와 통합하는 데 얻은 상당한 양의 추가 정보를 보여줍니다 (Fig. 2a,b). 접근 방식은 각 조직에서 평균적으로 42개의 유전자 (즉, 분석된 유전자의 3.6%)가 후전사적으로 상향 조절되고, 180개 (15.4%)가 후전사적으로 하향 조절된 것으로 예측됩니다. <strong>이것은 post-transcriptional regulatory의 대사 플럭스 활동에 대한 흥미로운 비대칭 효과를 보여줍니다.</strong> 예측된 활동 상태는 발현 데이터의 노이즈에 대해 견고하며, 유전자 발현 상태의 15%의 노이즈은 예측된 활동 상태의 최대 8%만 잘못된 결과를 초래합니다 (부록 표 1 온라인 참조). 모델 예측의 정확성을 평가하기 위해, 모델 유전자 활동을 제약하는 데 사용되는 발현 데이터의 나머지 80%를 사용하면서 20%의 유전자 활동을 예측하는 5겹 교차 검증 테스트를 수행했습니다. 유전자 활성이 예측된 유전자와 보유 데이터에서 높은 수준으로 발현된 유전자의 중첩은 모든 조직에서 유의미했습니다 (부록 Fig. 7 온라인 참조).</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\imat2.PNG" alt=""></p>
+<pre><code>Figure 2 모델의 모든 대사 유전자 중 예측된 활성 및 비활성 비율을 보여줍니다. 
+(a) 높은 발현 및 대사적으로 활성인 유전자의 비율은 검은색으로 표시되며, 후전사적으로 활성화된 유전자(즉, 높은 발현은 아니지만 활성으로 예측된 유전자)의 비율은 흰색으로 표시됩니다. (b) 낮은 발현 및 대사적으로 비활성인 유전자의 비율은 검은색으로 표시되며, 후전사적으로 억제된 유전자(즉, 낮은 발현은 아니지만 비활성으로 예측된 유전자)의 비율은 흰색으로 표시됩니다.
+</code></pre>
+<p>예측된 tissue-specific metabolic behavior를 체계적으로 검증하기 위해, 우리는 Human Metabolome Database (HMDB)30의 대사물질의 tissue-specific과 Braunschweig 효소 데이터베이스 (BRENDA)31의 생화학 반응 데이터를 수집했습니다 (Table 1 및 부록 데이터 세트 3 온라인 참조). 또한 유전자와 조직의 공저 발생을 웹에서 검색하여 tissue-specific 유전자 활동 데이터를 얻었습니다 (Table 1 및 부록 데이터 세트 3 참조). 예측된 tissue-specific의 유전자, 반응 및 대사물질은 세 가지 데이터 소스와 모두 유의한 상관 관계가 있었습니다 (Table 1, 부록 표 2 및 부록 결과, 온라인 참조). 후전사적 상향 조절을 통해 추론된 tissue-specific 유전자, 반응 및 대사물질의 tissue-specific 결과를 중점적으로 살펴보면, 원래 발현 데이터만을 사용하여 추론할 수 없는 tissue-specific 결과가 모든 경우에 많은 수로 일치하는 것을 확인할 수 있습니다 (Table 1). 마찬가지로 반대 방향으로, 후전사적 하향 조절에 의해 추론된 tissue-specific은 이미 알려진 조직 연관과 유의미하게 일치하지 않습니다 (Table 1), 이는 예상한 바와 같습니다.</p>
+<p>추가로, 우리는 대사 하위 시스템에 반응을 분류하고 (원래 metabolic network 모델14에서 정의된 대로, 주로 Kyoto Encyclopedia of Genes and Genomes LIGAND 데이터베이스를 사용하여), 효소의 post-transcriptional regulatory에서 발생하는 하위 시스템-조직 연관을 조사했습니다 (부록 Fig. 8 온라인 참조). 이러한 많은 연관은 알려진 조직 기능과 일치하며, 웹에서 통계적으로 유의한 방식으로 공동으로 발생합니다 (하이퍼지오메트릭 P-값 = 3.6 x 104). 예를 들어, 모델은 간에서 담즙산 생합성에 관여하는 유전자 HSD17B4 (hydroxysteroid (17-beta) dehydrogenase 4) 및 SCP2 (peroxisomal thiolase 2, 스테롤 운반 단백질)의 후전사적 상향 조절을 예측했습니다9. 우리 예측의 추가적인 대규모 검증으로, 이전 연구에서 일부 조직에서 발현된 유전자가 더 높은 진화 속도를 가진다는 것을 보여주었습니다32,33. 비슷한 분석을 반복하여, 통합된 모델에서 소수의 조직에서 <strong>활성으로 예측된 유전자들이 실제로 유의미하게 더 높은 진화 속도를 가지고 있음을 발견</strong>했습니다 (Wilcoxon 검정 P-값 = 6 x 104). 반면, tissue-specific이 발현만으로 결정되는 대사 유전자의 하위 집합은 소수의 조직에서 발현된 유전자가 많은 경우와 비교하여 유의미하게 더 높은 진화 속도를 나타내지 않습니다.</p>
+<p><strong>Table 1.</strong> Accuracy of tissue-specificity predictions of genes, reactions and metabolites</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\imattable1.PNG" alt=""></p>
+<pre><code>정확도 P-값은 유전자, 반응 및 대사물질의 예측된 조직 관련성(각각 표의 별도 행을 구성하는 다른 카테고리)과 다양한 데이터 소스에서 유래된 알려진 조직 관련성 간의 중첩을 반영합니다(임의 조직 관련성의 하이퍼지오메트릭 분포를 배경 모델로 가정함). 예측 정확도는 적어도 한 가지 조직에서 활성으로 예측된 모든 유전자를 대상으로 계산됩니다(검증 유전자 세트 선택에 대한 자세한 내용은 부록 결과 섹션 3을 참조하십시오). 전체 정확도 열은 모델에 의해 예측된 모든 조직 관련성(상향 및 하향 조절 모두) 집합을 나타냅니다. 후전사적 상향 또는 하향 조절을 기반으로 추론된 요소 하위 집합에 대한 예측 정확도는 각 카테고리(행)에 대해 다음 열에 표시됩니다. 알려진 및 예측된 유전자, 반응 및 대사물질의 tissue-specific 활동의 완전한 세트는 부록 데이터 세트 2 및 3에서 확인할 수 있습니다. Pre., 정밀도; Rec., 재현율.
+</code></pre>
+<h3 id="tissue-specific-uptake-and-secretion-of-metabolites">Tissue-specific uptake and secretion of metabolites</h3>
+<p>특정 조직이 biofluid와 교환하는 대사물질을 식별함으로써 tissue-specific metabolic behavior를 더 자세히 설명할 수 있습니다. <strong>이 작업에 유전자나 단백질 발현에만 의존하는 것은 문제가 됩니다. 왜냐하면 인간 조직에서 분비되거나 흡수되는 알려진 대사물질 중 46%만이 알려진 막 수송체와 관련되어 있기 때문입니다. 게다가 이러한 대사물질에 대해서도 발현 데이터는 수송의 방향을 반영하지 않으며, 수송체의 잠재적인 post-transcriptional regulatory을 고려하지 않습니다.</strong> 모델의 플럭스 활동 예측을 기반으로, 우리는 다양한 조직 간에 249개의 대사물질의 분비 및 흡수의 global 지도를 유도했습니다. 주요 대사기관인 간과 신장이 생체액과 가장 많은 대사물질을 교환하는 것으로 나타났습니다(각각 81개 및 71개).</p>
+<p>막 수송체에 의존하는 예측된 tissue-specific 대사물질 교환은 인간 막 수송체 데이터베이스(HMTD)와 수송 분류 데이터베이스(TCBD)에서 얻은 수송체의 tissue-specific 데이터를 기반으로 검증되었습니다. 이러한 경우 중에는 심장이 노르에피네프린을 흡수하는 경우와 같이 <strong>올바른 대사물질 교환은 수송체의 발현 상태에 반영되지 않는 경우가 많았습니다.</strong> 막 수송체가 알려지지 않은 경우에 대한 이러한 예측을 더 검증하기 위해, 우리는 대사물질의 교환과 관련된 예측된 tissue-specific이 HMDB에 기초하여 다양한 조직에서의 알려진 존재와 일치하는 것을 보였습니다. 예를 들어, 간에서 담즙산을 분비하는 것은 예측된 플럭스 활동을 기반으로 올바르게 추론되었으며, 이에 대응하는 막 수송체가 없는 상태에서입니다. 특이하게도, 생체액과 교환되는 대사물질 중 33%에 대한 tissue-specific 데이터가 상기 데이터 소스 중 어느 것에도 없습니다. 이는 이들의 tissue-specific 흡수 및 분비에 대한 최초의 예측으로, 이를 감안할 때 의미가 있습니다.</p>
+<h3 id="tissue-specific-analysis-of-metabolic-disease-genes">Tissue-specific analysis of metabolic disease genes</h3>
+<p>우리는 OMIM 데이터베이스37에서 알려진 60개의 질병 유발 유전자에 중점을 두고, 하나 이상의 조직에서 활성으로 예측되는 164개의 gene-tissue associations를 얻었습니다 (그림 3a). 이러한 예측의 정확도는 OMIM 데이터베이스를 채굴하여 <strong>해당 질병의 실제 tissue-association과 비교</strong>함으로써 평가되었습니다 (부록 데이터 세트 3). 질병 관련 gene-tissue associations의 예측 정확도는 통계적으로 유의하며(Table 1), 정밀도는 0.49이고 재현율은 0.55입니다(그림 3b).</p>
+<p>우리가 예측된 post-transcriptional regulatory 효과에 따라 유추되는 129개의 gene-tissue associations에 중점을 둘 때(즉, 통합 모델 없이 직접 발현 데이터로 유추되는 association은 제외), 우리는 또한 알려진 tissue-association과 유의미한 상관 관계를 얻었습니다(Table 1). 이것은 현재 방법을 적용함으로써 추가 정보가 얻어졌음을 보여주며, 이는 발현 데이터만 사용하는 것과 비교하여 gene-tissue associations를 세 배로 확장시킵니다.</p>
+<p>예를 들어, 글리코겐 저장병 IV형(안더센 병; OMIM:232500)을 유발하는 GBE1(1,4-알파 글루칸 가지 분기 효소) 유전자는 이 질병에 영향을 받는 모든 조직(간, 심장, 골격근 및 뇌38,39)에서 후전사적으로 상향조절될 것으로 예측되지만, 어느 하나의 조직에서도 높은 발현을 나타내지 않습니다 (그림 3a). 관련된 높은 발현 유전자의 활동에 기초하여 간에서 GBE1의 예측된 활동을 보여주는 글리코겐 대사 부분 네트워크의 시각화가 그림 4에 표시되어 있습니다. 마찬가지로, 메이플 시럽 소변병(OMIM:248600)을 유발하는 DLD(다이드로리포아마이드 디하이드로겐효소)와 BCKDHA(분기된 사슬 케토산 효소 E1) 유전자는 뇌와 간에서 후전사적으로 상향조절될 것으로 예측되었습니다. BCKDHA에 대한 예측은 분기된 사슬 케토산 효소의 활동이 인산화를 통해 후전사적으로 조절되며, 이에 대응하는 키나제가 분기된 사슬 케토산에 의해 변형되어 조절되는 것을 더 증거로 보여줍니다40.</p>
+<p>마지막으로, 질병 유발 유전자는 병리학적으로 관련이 없는 유전자보다 특정 조직에서 발현될 가능성이 더 높다고 보고되었습니다32. 여기서 고려된 대사 유전자에 대해 동일한 분석을 반복하면 질병 유발 유전자와 발현 데이터만을 기반으로 결정된 tissue-specific 간의 중간 정도의 관련성이 있음이 나타납니다(초경합 P 값 = 0.016), 그러나 예측된 tissue-specific 대사 활동을 기반으로 한 tissue-specific 수준의 현저히 높은 관련성이 있습니다(초경합 P 값 = 9  108). 이러한 결과는 <strong>post-transcriptional regulatory가 대사 질환 유발 유전자의 tissue-specific 활동을 결정하는 데 중심적인 역할을 한다는 것을 더욱 뒷받침합니다.</strong></p>
+<h2 id="discussion">Discussion</h2>
+<p><strong>이 연구는 genome-scale의 metabolic network 모델을 tissue-specific 유전자 발현 및 단백질 풍부도 데이터와 통합하여 human tissue-specific metabolic behavior를 체계적으로 예측하는 일반적인 접근 방법을 제시합니다.</strong> 이 방법은 인간의 열 가지 조직의 metabolic behavior를 예측하여 평균적으로 표현되는 대사 유전자의 18%가 후전사적으로 조절된다고 제안합니다. <strong>즉, 이들 유전자의 예측된 흐름 활동은 발현 수준과 다릅니다.</strong> 대사 활동의 post-transcriptional regulatory은 단백질 번역 및 분해 속도 및 인산화에 의한 최대 효소 활동(vmax)을 조절하는 hierarchical(계층적) 조절과 대사 조절로 나뉠 수 있으며, 이는 알레스테릭 및 질량 작용 효과를 통해 실제 효소 활동에 대한 대사 농도의 영향을 의미합니다. 특히, 예측된 post-transcriptional regulatory를 계층적 또는 대사적 규제로 분석하는 것은 우리의 방법의 범위를 벗어나며, tissue-specific 효소 활동 및 대사 흐름에 관한 포괄적인 실험 데이터 세트가 필요합니다. post-transcriptional regulatory의 중요한 효과는 미생물의 대사 흐름을 결정하는 데에도 있으며, 인간 tissue-specific 대사에 예측되는 것과 일치합니다41,42.</p>
+<p>예측된 tissue-specific metabolic behavior의 검증을 위해 우리는 유전자, 반응 및 대사물질의 tissue-specificity에 대한 다양한 데이터 원본을 활용했습니다. <strong>모든 경우에 예측된 tissue-specific은 이러한 데이터 세트와 유의미하게 상관관계를 보였으며</strong>, 정밀도와 재현율은 각각 0.36에서 0.7 및 0.37에서 0.55로 변동했습니다(Table 1, 부록 테이블 2 및 부록 결과, 섹션 3). 그<strong>러나 데이터가 노이즈가 있으며 데이터 원본 간에 일관성이 없기 때문에 관련 tissue-specific 데이터와 최적의 상관관계를 얻을 것으로 기대할 수 없습니다</strong> (부록 그림 10 온라인).</p>
+<p><strong>일부 잘못된 예측은 metabolic network 모델의 불완전성 및 대규모 네트워크의 분석을 가능하게 하기 위해 우리의 계산 방법에 통합된 간소화된 가정들 때문에 발생할 것으로 예상됩니다.</strong> <strong>특히, 안정 상태 가정(global 효소 동역학 데이터의 부족으로 인해 필요한)은 대사 상태를 대사 흐름의 일정한 흐름으로 설명하는데, 조직 대사의 시간에 따른 변화를 고려하지 않습니다.</strong> 이러한 변화는 유전자 발현 수준의 변화(전사 조절이나 mRNA 분해 속도의 변경으로 추정됨)로 반영될 수 있으며, 따라서 관련 시간에 따른 발현 데이터가 주어진 경우 우리의 방법을 통해 예측될 수 있습니다.</p>
+<p>우리의 tissue-specific 유전자 예측의 정확도는 과거 방법과 비교하여 평가될 수 있습니다. 이러한 방법은 기능적으로 관련된 유전자 집합(예: 대사 경로) 내에서 <strong>높은 발현 유전자의 풍부함 분석을 기반</strong>으로 합니다. ErmineJ43와 GSEA44 같은 두 가지 최신 방법을 적용하여 tissue-specific 유전자 발현 데이터를 기반으로 대사 유전자 및 반응의 tissue-specific을 예측하는 것은 <strong>우리의 방법에 의해 얻은 예측 정확도가 다소 더 높음</strong>을 보여줍니다(그림 5a, 부록 결과, 섹션 3,4 및 부록 그림 11–14 온라인).</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\imat5.PNG" alt=""></p>
+<p>Figure 5a는 최소한 하나의 조직에서 활동으로 예측된 유전자 집합에 대한 모든 방법의 예측 성능을 비교합니다. 유전자 활동 예측의 재현율 수준은 추가적인 대사 유전자를 고려할 때 명백하게 감소하며, 이는 우리의 방법 (또는 동일한 대사 모델을 사용하는 제약 기반 접근 방법)으로 활동 상태를 결정할 수 없는 (또는 단일 조직에서 활성화 또는 비활성화되는 것 외의) 경우 모든 메타볼릭 유전자입니다(부록 결과, 섹션 3, 부록 그림 12–14 및 부록 테이블 2). 이러한 추가적인 유전자를 고려할 때도, 동이종효소를 제외하면 우리의 방법의 평균 재현율 수준은 다른 접근 방법보다 여전히 높습니다(ErmineJ 및 GSEA의 경우 0.22와 0.08에 비해 우리의 방법의 경우 0.25입니다; 부록 그림 12). 동이종효소를 포함하면(우리의 방법이 고유한 활동 상태를 예측할 수 없음) ErmineJ가 가장 높은 재현율을 제시합니다(우리의 방법의 경우 0.14에 비해 0.22)만 정밀도가 상당히 낮습니다(우리의 방법의 경우 0.47에 비해 0.38; 부록 그림 13). 동이종효소의 활동을 일관되게 활성화되거나 비활성화된 것으로 가정하는 간소화 가정을 기반으로 우리의 예측의 재현율 수준이 ErmineJ의 예측보다 높아지지만 정밀도가 약간 낮아져 ErmineJ보다 조금 낮아집니다(부록 그림 14).</p>
+<p>개념적 수준에서, global stoichiometric 계산을 포함하는 제약 기반 방법과 달리, <strong>유전자 세트 풍부화 기반 방법은 미리 정의된 경로에 의해 정의된 경로에만 의존하며, 주어진 경로의 활동을 추론하기 위해 이웃 경로의 활동에 대한 정보를 사용하지 않습니다.</strong> 후자의 방법은 주어진 조건에서 유전자 세트가 전체적으로 활성화되거나 비활성화된 것으로 가정하지만 실제로는 다른 부분집합의 경로가 다양한 대안 경로 및 경로 간 교차 링크로 인해 활성화될 수 있습니다. 실제로, 저희의 방법에 의해 예측된 대사 경로 활동의 일관성을 검사할 때(참조문헌 14의 경로 주석을 기반으로), <strong>전통적으로 정의된 경로의 유의한 부분(36%)이 다양한 조직에서 부분적으로만 활성화됨을 확인할 수 있습니다(그림 5b)</strong>, 각 경로당 활성화된 반응의 분율이 0.2에서 0.8 사이로 다양합니다. 이 결과는 독립적이지 않은 실제로는 다른 경로들을 고려하지 않고 전체적인 대사 네트워크를 고려해야 함을 강조합니다.</p>
+<p>예측된 조직 특이적 대사 행동에 쉽게 접근할 수 있도록, 우리는 표현 및 예측된 흐름 데이터가 전체 인간 네트워크에 투영된 네트워크 시각화를 생성했습니다(부록 결과, 섹션 5). 이러한 네트워크 시각화는 우리의 웹사이트(<a href="http://www.cs.tau.ac.il/~shlomito/tissue-net">http://www.cs.tau.ac.il/~shlomito/tissue-net</a>)를 통해 접근할 수 있으며, 무료로 사용할 수 있는 Cytoscape 소프트웨어를 사용하여 대화식으로 탐색할 수 있습니다45. 이 거대한 네트워크를 쉽게 탐색하기 위해, 네트워크를 세포 내구성이나 대사 부분으로 분해하는 대안적인 보기를 제공합니다. 세포 특이적 몇몇 발현 및 예측된 대사 흐름이 포함된 작은 하위 네트워크의 예는 Figure 4에 표시되어 있습니다.</p>
+<p>여기서 제시된 기본적인 접근 방법은 관련 발현 데이터가 주어진 경우 대사 이상의 미래의 계산적 대사 이상 조사를 위한 길을 열어줍니다. Duarte 등14은 위장 우회 수술 후 측정된 유전자 발현 변화를 대사 네트워크에 매핑하여 대사 행동의 유전체 규모 변화를 시각화하고 해석하는 것으로 이러한 노력의 첫걸음을 내딛었습니다. 여기서 설명된 계산적 방법은 질병 상태 발현 데이터와 일관된 흐름 분포를 예측하고 동시에 조직 특이적 후전사적 규제 효과를 예측함으로써 이러한 연구 선을 빠르게 발전시킬 수 있습니다. 조직 특이적 유전자 발현 측정치를 기반으로 하여 건강한 개인 또는 질병에 걸린 개인의 tissue-specific을 분류하는 것은 이러한 중요한 응용 프로그램 중 하나입니다. 또 다른 중요한 응용 프로그램은 생체 유체 대사체학을 이용하여 질병 및 조직 특이적 생체 표지자를 예측하는 것입니다46.</p>
+<p><strong>우리의 접근 방법은 기존의 조직 특이적 대사 모델을 활용하여 다양한 생리적 조건에서 다양한 추가적인 조직의 대사 행동을 예측할 수 있습니다.</strong> <strong>더 정교한 조직 특이적 모델은 조직 특이적 목적 함수를 식별하거나 조직 특이적 대사물 교환 패턴을 측정함으로써 생성될 수 있으며, 이는 가능한 기능적 상태의 공간을 제한할 수 있습니다49.</strong> 미래의 조직 특이적 대사 모델은 세포 유형 분화에 중심적인 역할을 하는 것으로 알려진 미세RNA 규제에 대한 추가 데이터를 통합할 수도 있으며, 세포소기관 특이적 단백질체 데이터를 통합할 수도 있습니다51. 전반적으로 여기서 제시된 방법은 인간 조직 특이적 대사 모델의 신속한 개발을 위한 기초를 마련하고, 인간 대사 이상의 계산적 연구를 진전시킬 것으로 예상됩니다.</p>
+<h2 id="methods">METHODS</h2>
+<p>조직 특이적 대사 모델링. Duarte 등에 의한 유전체 규모의 인간 대사 네트워크 모델은 1,496개의 ORF, 2,004개의 단백질, 2,766개의 대사물 및 3,311개의 반응을 포함합니다14. 유전자 발현 데이터와 단백질 풍부도에 기반한 유전자의 조직 특이성 데이터는 각각 GeneNotes18,28 및 HPRD29에서 얻었습니다.</p>
+<p>특정 조직에서 유전자가 높거나 낮게 발현된 경우 해당 유전자가 모든 GeneNote 패턴과 HPRD에서 균일하게 표시되었는지 여부에 따라 표시되거나 비표시되었습니다. 그렇지 않은 경우에는 중간 정도로 간주되었습니다.</p>
+<p>Duarte 등의 대사 네트워크 모델의 상세한 부울 유전자-반응 매핑을 사용하여 각 반응에 대한 조직 특이적 발현 상태를 식별했습니다. 이는 해당 효소 유전자가 해당 조직에서 발현으로 분류되는지 여부를 반영하는 것이었습니다. 구체적으로, 부울 매핑을 수정하여 삼중 값 표현 상태를 고려했습니다. 높게, 낮게 및 중간 정도로 발현된 유전자에 대해 각각 1, -1 및 0 값을 할당하고 논리 'and' 및 'or' 연산자를 각각 'max' 및 'min' 표현으로 대체했습니다(참고문헌 22를 따름).</p>
+<p>이 분석은 모델의 반응 중 일부(표시된 RH)가 높게 발현되었음을 정의하고 다른 일부(표시된 RL)가 낮게 발현되었음을 정의했습니다. 각 조직에 대해 다음과 같은 혼합 정수 선형 프로그래밍(MILP) 문제를 수립하여 존재하는 기질과 열역학 제약을 충족시키는 안정 상태의 흐름 분포를 찾았습니다. 이때 반응의 활동이 그들의 발현 상태와 일치하는 것을 최대화합니다:</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\imat.PNG" alt=""></p>
+<ul>
+<li>
+<p>v는 플럭스 벡터이며, S는 nxm 스토이시오메트릭 행렬이며, 여기서 n은 대사물의 수이고 m은 반응의 수입니다.</p>
+</li>
+<li>
+<p>질량 보존 제약 조건은 식(1)에 의해 강제됩니다.</p>
+</li>
+<li>
+<p>Flux 방향을 제한하는 열역학 제약 조건은 식(2)에서 플럭스 값에 하한 및 상한 경계 vmin 및 vmax를 설정함으로써 부여됩니다.</p>
+</li>
+<li>
+<p>각 발현된 반응에 대해 부울 변수 y+와 y–는 해당 반응이 활성 상태(두 방향 중 하나)인지 여부를 나타냅니다. 구체적으로, 높게 발현된 반응은 유의한 positive flux를 운반하는 경우 활성 상태로 간주됩니다. 이 양은 양의 임계값 e보다 큰 경우 (식(3)) 또는 식(4)(역반응의 경우)에서 음의 임계값 -e보다 작은 경우입니다.</p>
+</li>
+</ul>
+<p>우리는 높게 발현된 반응의 플럭스 활동을 결정하기 위해 임계값으로 e=1을 선택했지만, 여러 가지 다른 선택 사항이 정성적으로 유사한 결과를 제공합니다.</p>
+<ul>
+<li>각 낮게 발현된 반응에 대해 부울 변수 y+는 반응이 비활성인지 여부를 나타냅니다(식(5)). 구체적으로, 낮게 발현된 반응은 대사적인 플럭스를 운반하지 않을 경우 비활성으로 간주됩니다.</li>
+</ul>
+<p>그러나 이러한 반응이 비활성으로 간주되지만 저럼한 대사물 플럭스를 운반하도록 식(5)를 변경하면(즉, 상한값을 e보다 작게 설정함) 정성적으로 유사한 결과가 나옵니다(부록 테이블 3 참조).</p>
+<p>최적화는 활성화된 반응의 수(RH)와 비활성화된 반응의 수(RL)를 최대화합니다. MILP 문제를 해결하는 데 상업용 CPLEX 솔버를 사용했습니다. 하나의 MILP 솔버에 의해 찾은 솔루션은 최대화된 목적 함수의 관점에서 최적의 솔루션이 보장되지만, 식별된 솔루션이 고유하지 않을 수 있습니다. 대안적 최적 솔루션 공간이 존재할 수 있기 때문입니다. 우리의 경우 최적 솔루션 공간은 표현 데이터와 동일한 유사성을 갖는 대안적인 안정 상태 플럭스 분포를 나타냅니다. 이러한 대안적 솔루션을 고려하기 위해, 이전의 대사-조절 솔루션에 대한 연구에서 사용된 Flux Variability Analysis27의 변형을 사용했습니다.</p>
+<p><strong>우리의 방법은 각 대사 반응이 특정 조직에서 전체 솔루션 공간에서 항상 활성화되는지(또는 그 반대의 경우 항상 비활성화되는지)를 계산합니다. 이를 위해 각 반응에 대해 두 개의 MILP 문제를 해결합니다</strong>(각각은 위에서 설명한 것과 유사합니다) 해당 반응이 활성화되도록 강제될 때 발현 데이터와의 최대 가능한 유사성을 찾기 위해 그리고 해당 반응이 비활성화되도록 강제될 때 발현 데이터와의 최대 가능한 상관 관계를 찾기 위해.</p>
+<ul>
+<li>신뢰 수준 x–y로 x가 y보다 크거나 같으면 해당 조직에서 해당 반응이 활성화되는 것으로 간주됩니다(즉, 반응이 활성 상태인 경우 플럭스 활동과 expression 데이터 간에 더 높은 유사성이 얻어집니다).</li>
+<li>반대로, x가 y보다 작으면 해당 반응이 비활성화되는 것으로 간주됩니다(y-x 신뢰 수준으로).</li>
+<li>x=o y의 경우(즉, 반응이 활성화되거나 비활성화될 때 표현 데이터와 동일한 유사성이 얻어지는 경우) 활동 상태는 결정되지 않은 것으로 간주됩니다.</li>
+</ul>
+<p>모델 내에서 여러 반응(하나 이상의 효소를 통해)에 연관된 유전자에 대해 플럭스 활동 상태를 할당하기 위해 유사한 방법이 채택되었습니다. 이 경우 x는 유전자와 연관된 하나 이상의 반응이 활성화된 경우 발현 데이터와의 최대 가능한 유사성을 나타내고, y는 해당 유전자와 연관된 모든 반응이 비활성화된 경우 발현 데이터와의 최대 상관 관계를 나타냅니다.
+이전 연구에서는 제한 기반 방법을 적용하는 맥락에서 MILP를 사용했습니다. 그러나 이 방법은 표준 플럭스 균형 분석 절차를 채택하기 전에 비활성 유전자를 제거하는 전처리 단계로 유전자 발현 데이터를 분석했습니다. 이러한 데이터는 세포 목적 기능을 정의하고 대사물 흡수 속도에 대한 추가적인 사전 데이터가 필요한 표준 플럭스 균형 분석 절차를 사용합니다. 반면, 위에서 설명한 방법은 이러한 데이터가 필요하지 않습니다(인간 조직에는 이러한 데이터가 없음). 왜냐하면 이 방법은 표현 데이터를 최적화 방법의 일부로 통합함으로써 유사성을 최대화하기 때문입니다.</p>
+<h2 id="질문과-이해">질문과 이해</h2>
+<ul>
+<li>
+<p>유전자 발현과 단백질 풍부도 데이터만으로는 유전자나 효소의 활동 상태를 완전히 이해하기 어렵습니다. post-transcriptional regulatory effect는 유전자나 효소의 활동이 발현 수준과 일치하지 않을 수 있다는 것을 나타냅니다. 이는 대사 네트워크에서 발생하는 중요한 현상 중 하나입니다.</p>
+</li>
+<li>
+<p>대사 네트워크의 활동은 유전자 발현만으로는 충분히 설명되지 않습니다. post-transcriptional regulatory effect는 유전자 발현이나 단백질 풍부도와 관련된 다양한 생리적 조건에 따라 대사 활동이 어떻게 변하는지를 이해하는 데 중요한 역할을 합니다.</p>
+</li>
+<li>
+<p>post-transcriptional regulatory effect를 고려함으로써 대사 네트워크 모델의 예측력과 신뢰성을 향상시킬 수 있습니다.</p>
+</li>
+</ul>
+<p>결국 이 post-transcriptional regulatory effect를 포함한 포괄적인 tissue specific metabolic behavior를 예측하는것이 이 알고리즘의 목표이다.</p>
+<ul>
+<li>
+<p>일부 잘못된 예측은 metabolic network 모델의 불완전성 및 대규모 네트워크의 분석을 가능하게 하기 위해 우리의 계산 방법에 통합된 간소화된 가정들 때문에 발생할 것으로 예상됩니다. 특히, steady state assumption(global 효소 동역학 데이터의 부족으로 인해 필요한)은 대사 상태를 대사 흐름의 일정한 흐름으로 설명하는데, 조직 대사의 시간에 따른 변화를 고려하지 않습니다.</p>
+</li>
+<li>
+<p>gene set enrichment–based methods는 미리 정의된 경로에 의해 정의된 경로에만 의존하며, 주어진 경로의 활동을 추론하기 위해 이웃 경로의 활동에 대한 정보를 사용하지 않습니다. 전통적으로 정의된 경로의 유의한 부분이 다양한 조직에서 부분적으로만 활성화됨을 확인할 수 있습니다. 이 결과는 독립적이지 않은 실제로는 다른 경로들을 고려하지 않고 전체적인 대사 네트워크를 고려해야 함을 강조합니다.</p>
+</li>
+</ul>
+
+            
+            
+        </body>
+        </html>
