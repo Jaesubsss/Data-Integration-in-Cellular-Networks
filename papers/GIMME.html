@@ -154,7 +154,7 @@
 <p>우리는 여기서 expression data를 목적 함수와 결합하여 잠재적으로 노이즈가 있는 data에도 불구하고 기능적 모델을 생성합니다. 우리는 세포 내와 인간 세포 모두에서 metabolic 반응을 제한하기 위해 genome-scale의 transcriptomic data의 사용을 설명하며, context-specific metabolic network를 reconstruction하고 비교할 수 있도록 합니다. 우리는 세포의 가정된 기능적 상태와 유전자 expression data의 consistency을 양적으로 정의하여 생리학적 data와 일치함을 입증합니다. context-specific metabolic network는 다양한 세포 유형과 그에 상응하는 metabolic 과정으로 인해 인간 metabolic를 정확하게 모델링하는 데 거의 필수적일 것으로 예상됩니다.</p>
 <h2 id="resultsdiscussion">Results/Discussion</h2>
 <h3 id="gimme-algorithm">GIMME Algorithm</h3>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme1.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme1.PNG" alt=""></p>
 <pre><code>Figure 1. GIMME 알고리즘의 흐름도 도식 표현. 
         
 GIMME 알고리즘은 세 가지 입력을 받습니다: 
@@ -181,8 +181,8 @@ Metabolic Functionalities(RMF).</li>
 <p>(A) 각 RMF를 통한 최대 가능한 플럭스를 찾습니다(모든 반응의 사용을 허용합니다).
 (B) RMF를 특정 최소 수준 이상에서 작동하도록 제한합니다(일반적으로 [A]에서 발견된 최대의 백분율) 및 양적 데이터 세트와 가장 잘 일치하는 사용 가능한 반응 집합을 식별합니다.</p>
 <p>Part A는 플럭스 균형 분석(FBA)을 통해 달성됩니다. Part B는 다음과 같은 선형 프log래밍 문제의 해결을 포함합니다:</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimmes.PNG" alt=""></p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme%202.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimmes.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme%202.PNG" alt=""></p>
 <pre><code>Figure 2. inconsistency scores의 계산. 
 
 각 반응의 inconsistency scores는 cutoff로부터의 편차를 반응을 통한 필요한 플럭스와 곱하여 계산됩니다. 
@@ -206,13 +206,13 @@ v는 각 반응을 통한 플럭스 흐름을 양적으로 설명하는 플럭�
 이와 유사한 결과는 다른 임계값에서도 관찰되었습니다. 필수 metabolic 기능(RMF)은 특정 탄소원에서의 성장이었고, context-specific metabolic network는 최적 성장의 90% 이상을 유지하도록 강제되었습니다. 진화된 균주들이 거의 항상 다양한 탄소원에서 wild-type 균주보다 더 나은 성장을 하기 때문에 [19], 아홉 가지 탄소원에 대한 최적 성장을 위한 metabolic network가 구축되었습니다.</p>
 <p>결과는 Figure 3 (글리세롤 적응된 균주)와 Figure 4 (라크테이트 적응된 균주)에 나타나 있습니다. 이 Figure들에서 inconsistency scores를 사용하여 정규화된 consistency 점수를 계산했으며, 높은 정규화된 consistency 점수는 gene expression 프로파일이 목표와 더 일치한다는 것을 나타냅니다.<br>
 이 Figure들은 진화된 균주들의 gene expression 상태가 거의 모든 경우에는 9가지 기질에서의 성장과 유사하게 더 일관되어 있음을 보여주며, 이는 [19]의 형질적 발견과 거의 일치합니다. 이러한 결과는 진화된 균주들이 다양한 탄소원에 대한 최적 성장을 위한 네트워크의 사용과 관련하여 wild-type 균주보다 더 일관된 gene expression 상태를 갖고 있음을 보여줍니다.</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme3.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme3.PNG" alt=""></p>
 <pre><code>Figure 3. Glycerol-evolved strain normalized consistency
 scores. 
 
 정규화된 consistency 점수는 텍스트에서 설명한대로 inconsistency scores에서 직접 계산됩니다. 더 높은 정규화된 consistency 점수는 gene expression 데이터가 RMF와 상대적으로 더 일치한다는 것을 나타냅니다. 따라서 여기에서는 글리세롤 적응 균주의 gene expression 데이터가 테스트된 각 탄소원에 대한 매우 효율적인 성장과 상대적으로 더 일치합니다. 순열 테스트에 의해 결정된 p 값은 모든 경우에서 0.01보다 작습니다.
 </code></pre>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme4.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme4.PNG" alt=""></p>
 <pre><code>Figure 4. Lactate-evolved strain consistency scores. 
 
 이 Figure은 글리세롤에 진화된 균주와 동일한 결과를 보여줍니다. 테스트된 각 탄소원에 대한 성장에 대한 정규화된 consistency 점수는 진화된 균주에서 더 높으며, 이는 진화된 균주의 gene expression 데이터가 각 탄소원에 대한 효율적인 성장과 더 일치한다는 것을 나타냅니다.
@@ -223,7 +223,7 @@ metabolic engineering을 위한 strain의 합리적 설계는 genome 규모의 m
 <p>우리는 이 데이터셋을 사용하여 알고리즘의 견고성을 두 가지 다른 요인에 대해 검증했습니다. 먼저, 8에서 14까지 0.1씩 증가하는 임계값에 대한 결과를 다시 계산하여 임계값을 변경하는 효과를 테스트했습니다. 우리는 모든 임계값에 대해 consistency 점수가 유의하게 다르다는 것을 발견했습니다. 일부 임계값의 경우 p 값이 다른 임계값보다 좋지 않았지만, 테스트 범위 내의 모든 임계값에 대해 p는 0.01보다 작았습니다.</p>
 <p>두 번째로, 잭나이프 테스트를 사용하여 알고리즘의 견고성을 확인했습니다. 우리는 100번의 반복에서 반응에 매핑된 표현 값의 5%를 무작위로 제거하고 맥락별 네트워크와 consistency 점수를 재계산했습니다. 우리는 모든 반복에서 동일한 결론에 도달했으며, 일부 경우에는 p 값이 모든 데이터를 사용할 때보다 조금 낮았습니다. 모든 경우에서 결론은 p 값이 0.02보다 작았으며, <strong>이는 가능한 한 많은 반응이 데이터에 할당될 때 알고리즘의 통계적 성능이 더 높아져야 함을 시사합니다.</strong></p>
 <h4 id="terminal-electron-acceptor-effect-on-network">Terminal electron acceptor effect on network</h4>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme5.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme5.PNG" alt=""></p>
 <pre><code>Figure 5. Metabolic engineering strain consistency score.
 
 Lactate를 생산하기 위해 설계된 대장균 균주의 정규화된 consistency 점수는 $\Delta$pta $\Delta$adhE 균주가 와일드 타입과 비교했을 때 Lactate의 동시 생산과 성장에 일관된 metabolic gene expression 상태를 보여줍니다. 이 더 높은 정규화된 consistency 점수는 더블 삭제 균주의 gene expression 데이터가 metabolic공학 목표와 와일드 타입 균주보다 더 일관된 것을 나타내며 실험 측정과 일치합니다.
@@ -232,7 +232,7 @@ Lactate를 생산하기 위해 설계된 대장균 균주의 정규화된 consis
 electron acceptors의 가용성에 따라 다릅니다. 전체 21가지 다른 균주/전자 수용체 조건의 gene expression 데이터가 분석되어 산소, 무산소, 아질산 첨가 또는 미첨가 조건에서의 성장에 가장 일관된 모델을 구축했습니다.</p>
 <p><strong>기대되는 것은 주어진 조건(예: 공기중에서)에서 취한 균주 데이터가 해당 조건(다시 말해, 공기중에서)에서의 성장과 더 일치할 것이라는 것입니다.</strong> 모든 consistency 점수 사이의 Pairwise comparison이 수행되었으며, 결과는 순서대로 공기중에서, 무산소에서, 그리고 무산소 아질산 조건에서의 성장을 나타내는 Figure 6, 7 및 8에 나타나 있습니다.</p>
 <p>녹색 상자는 y 축에 표시된 균주/조건이 x 축에 표시된 균주보다 성장에 더 일관되어 있는 것을 나타내며, 빨간색 상자는 그 반대를 나타냅니다. 녹색 또는 빨간색 색상의 강도는 시각화 스케일링을 위해 log2 변환 후 inconsistency scores의 차이를 나타냅니다. 검은 상자는 통계적으로 유의한 (p&lt;0.05) 결론을 얻을 수 없음을 나타냅니다. 통계적으로 유의한 결론이 가능한 모든 경우에서 산소를 이용한 성장의 gene expression은 무산소에서의 성장보다 무산소에서의 성장에 더 일관되어 있습니다. 통계적으로 유의한 경우의 99%에서 무산소 성장에서의 gene expression은 산소를 이용한 성장보다 무산소에서의 성장에 더 일관되어 있습니다(Figure 7). 아질산을 이용한 무산소 성장에서의 경우 90%의 경우가 해당합니다(Figure 8). 예상대로, 각 조건에 대해 서로 다른 하위 반응 집합이 활성화됩니다. 이전 결과와 함께 고려하면, 이는 알고리즘에서 나타나는 consistency 점수에 대한 강력한 지원을 제공하며 긍정적인 제어를 제공합니다.</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme6.PNG" alt="Figure 6"></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme6.PNG" alt="Figure 6"></p>
 <pre><code>Figure 6. 유산소 조건에서 consistency의 pairwise comparisons. 
 
 inconsistency scores의 log2 변환의 그래픽 표현입니다. 
@@ -242,7 +242,7 @@ p 값이 0.05보다 작은 차이는 비워둡니다.
 빨간색 또는 초록색의 색조는 inconsistency scores의 차이의 log2를 양적으로 나타냅니다. 
 여기서 초록색과 빨간색 블록의 위치는 통계적으로 유의미한 모든 경우에 산소가 공급된 균주가 산소가 공급되지 않은 균주보다 효율적인 유산소 성장과 더 consistency 있는 gene expression을 갖고 있음을 나타냅니다.
 </code></pre>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme7.PNG" alt="Figure 7"></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme7.PNG" alt="Figure 7"></p>
 <pre><code>Figure 7. anaerobic 조건에 대한 consistency의 pairwise comparisons.
 
 inconsistency scores의 log2 변환의 그래픽 표현입니다. 
@@ -253,7 +253,7 @@ p 값이 0.05보다 작은 차이는 비워둡니다.
 초록색과 빨간색 블록의 위치는 통계적으로 유의미한 거의 모든 경우에 산소가 공급되지 않은 균주에서의 gene expression 데이터가 산소가 공급된 균주보다 효율적인 anaerobic 성장과 더 consistency 있음을 보여줍니다.
 
 </code></pre>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme8.PNG" alt="Figure 8"></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme8.PNG" alt="Figure 8"></p>
 <pre><code>Figure 8. 질산 조건에 대한 consistency의 pairwise comparisons. 
 
 inconsistency scores의 log2 변환의 그래픽 표현입니다. 
@@ -302,7 +302,7 @@ p 값이 0.05보다 작은 차이는 비워둡니다.
 <p>Table 1 에서 보여진 것처럼 우리는 체내 skeletal muscle cells에 대한 세 가지 공개적으로 이용 가능한 gene expression data set를 사용했습니다. 이 세개의 데이터 세트는, 이전에 설명한 E.coli 데이터 세트와 마찬가지로, 원래 context-specific metabolic networks를 생성하는 것과 완전히 다른 목적으로 수집되었습니다. 그럼에도 불구하고, 이러한 데이터는 genome-scale의 metabolic network의 맥락에서 해석될 수 있습니다.</p>
 <p>세 데이터 세트는 모두 Affymetric(Santa Clara, CA) gene expression arrays를 사용하여 수집되었습니다. GB 데이터세트는 U133+ 2.0 배열을 사용했고, GI와 FO 데이터 세트는 U133A 배열을 사용했습니다. 배열은 비슷하지만, U133+ 2.0 배열은 U133A 배열이 제공할 수 없는 179개의 반응에 대한 신뢰할 수 있는 전사체 데이터를 제공할 수 있습니다. 이러한 arrays의 model reactions에 대한 커버리지는 Figure 9에 나와있습니다.</p>
 <p>특정 array type에 대한 annotation 정보가 probeset sequence가 해당 유전자 또는 밀접하게 관련된 유전자에 대해 unique하다는 것을 나타내는 경우, metabolic gege에 해당하는 각 probeset를 해당 유전자에 매핑했습니다. 여러 관련없는 유전자에 해당하는 시퀀스를 가진 probeset은 무시되었습니다. gene expression과 관련된 값은 이전에 설명한 대로 gene-protein-reaction associations를 통해 반응에 매핑되었습니다.</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme9.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme9.PNG" alt=""></p>
 <pre><code>Figure 9. Affymetrix 유전자 칩 데이터를 반응에 매핑하는 과정을 보여줍니다. 
 
 흰색 영역의 반응은 어느 플랫폼에서도 사용 가능한 유전자 칩 데이터가 없습니다. 회색 영역의 반응은 133+ 2.0 플랫폼에서만 사용 가능한 데이터가 있습니다. 검은색 영역의 반응은 133+ 2.0과 133A 플랫폼 모두에서 사용 가능한 데이터가 있습니다. 중요한 점은 5% (179개)의 반응이 133+ 2.0 칩에만 표시되어 있으며, 이는 칩 간 점수를 증가시킬 수 있습니다. 평균 차이 점수는 340이므로, 179개의 반응의 차이는 50% 이상의 영향을 미칩니다.
@@ -310,7 +310,7 @@ p 값이 0.05보다 작은 차이는 비워둡니다.
 <h4 id="model-creation-and-comparison">Model creation and comparison</h4>
 <p>42 (6+12+24) 개의 gene expression 데이터 세트 각각에 대해 GIMME 알고리즘을 사용하여, 최적 효율성의 절반 이상에서, ATP를 생성하고 가능한 한 데이터와 일치하는 모델을 생성했습니다. 이러한 모델들은 두 모델간의 비교에서 차이가 있는 반응의 수를 찾아서 pairwise compared 되었습니다.</p>
 <p>평균적으로 두 모델은 340개의 반응이 다르며, 이는 global model의 반응 중 약 10퍼센ㅌ으에 해당합니다. 이러한 pairwise distance는 Figure 10에서 그래픽으로 나타납니다. 더 어두운 사각형은 밝은 사각형보다 서로 유사한 네트워크 쌍을 나타냅니다.</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme10.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme10.PNG" alt=""></p>
 <pre><code>Figure 10. sekeletal muscle models의 비교. 
 
 이 히트맵은 각 모델 쌍의 차이 수준을 나타냅니다. 더 어두운 사각형은 더 밝은 사각형보다 서로 더 유사한 모델을 나타냅니다. 검은색 사각형(대각선상의 사각형)은 동일한 모델을 나타내며, 흰색 사각형은 가장 다른 모델 쌍을 나타냅니다. 주 대각선을 둘러싼 세 개의 어두운 블록은 각 데이터 세트 내의 샘플 간 비교입니다. 이러한 어두운 블록은 각 데이터 세트 내의 모델이 다른 데이터 세트에서 유도된 모델보다 서로 더 유사하다는 것을 보여줍니다. 특정 gene expression 배열 유형에서 유도된 모델은 다른 배열 유형에서 유도된 모델보다 서로 더 유사해 보입니다. 그러나 실제로 이것이 사실인지를 보여주는 데이터는 없습니다. 이는 Figure 11에서 나타나 있습니다.
@@ -318,7 +318,7 @@ p 값이 0.05보다 작은 차이는 비워둡니다.
 <p>두가지 트렌드가 즉시 나타납니다.</p>
 <p>첫째, 각 데이터 세트에서 유도된 metabolic 네트워크는 같은 데이터 세트에서 유도된 다른 네트워크에 더 유사합니다. 이는 대각선을 둘러싼 세개의 큰 어두운 사각형에 의해 보여집니다.</p>
 <p>둘째, GI와 FO 모델은 GB 모델보다 서로 더 유사한 것으로 나타납니다. 처음에는 유전자 칩이 결과에 영향을 줄 수 있다고 의심했기 때문에, U133A array에 없는 179개의 반응을 무시하고 각 모델 쌍 간의 거리를 다시 계산했습니다. 이 결과는 Figure 11에서 그래픽으로 나타납니다.</p>
-<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\pictures\gimme11.PNG" alt=""></p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\gimme11.PNG" alt=""></p>
 <pre><code>Figure 11. sekeletal muscle models의 비교, 사용된 두 종류의 유전자 칩에 모두 데이터가 있는 반응만을 사용합니다. 
 
 이 그림은 Figure 10과 동일하지만, 그래픽으로 나타낸 거리는 두 유형의 유전자 칩에 모두 데이터가 있는 반응만을 사용하여 계산됩니다. U133+ 2.0 칩에는 표시되지만 U133A 칩에는 없는 반응의 5%는 비교에 사용되지 않습니다. 여기서는 더 이상 칩 유형에 기반한 편견을 볼 수 없으며, 대신 FO 데이터 세트가 GI 데이터 세트뿐만 아니라 GB 데이터 세트와도 유사함을 볼 수 있습니다. 칩 유형이 실험 간의 거리에 영향을 미치는 것만큼이나 거리에 영향을 미치는 것으로 보입니다. 그러나 알고리즘이 활성 또는 비활성으로 정의하는 반응에 영향을 미치는 것으로 보이는 것은 다르지 않습니다. 이는 Figure 10과 Figure 11 사이의 차이에서 확인할 수 있습니다.
