@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Reconstruction of Genome-Scale Active Metabolic Networks for 69 Human Cell Types and 16 Cancer Types Using INIT</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css">
+<link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="reconstruction-of-genome-scale-active-metabolic-networks-for-69-human-cell-types-and-16-cancer-types-using-init">Reconstruction of Genome-Scale Active Metabolic Networks for 69 Human Cell Types and 16 Cancer Types Using INIT</h1>
+<h2 id="abstract">Abstract</h2>
+<p>high throughput analytical methods의 발전으로 의사들은 유전자 서열, 유전자 발현 프로필 또는 대사 물질 특성과 같은 환자 특이 데이터 세트에 대한 폭넓은 접근 가능성을 가지게 되었습니다. 이는 개인 맞춤형이면서도 시스템 수준 분석에 기반한 새로운 건강 관리 접근법을 열어줍니다. 유전체 규모의 대사 네트워크는 다른 유전자 간의 관계에 대한 mechanistic description을 제공하여 대규모 실험 데이터 세트의 분석과 해석에 유용합니다. 본 연구에서는 69가지 다른 세포 유형 및 16가지 종류의 암에 대한 유전체 규모의 활성 대사 네트워크를 생성하는 INIT (Integrative Network Inference for Tissues) 알고리즘을 설명합니다. INIT 알고리즘은 주로 Human Proteome Atlas에 포함된 protein abundances에 관한 세포 유형별 정보를 사용합니다. 생성된 모델은 인간 Metabolic Atlas를 수립하기 위한 첫 번째 단계를 형성하며, 이는 다양한 인간 세포 유형의 대사에 대한 포괄적 설명이며, 복잡한 질병을 이해하기 위한 조직 수준 및 생체 수준 시뮬레이션을 가능하게 할 것입니다. 암 종류의 활성 대사 네트워크와 건강한 세포 유형 간의 비교 분석은 암 치료를 위한 일반적인 잠재적 약물 타깃으로서 암 특이적 대사 특징을 식별할 수 있었습니다.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Abnormal metabolic states (비정상적인 대사 상태)는 당뇨병, 고혈압, 심장 질환 및 암과 같은 많은 질병의 원인이며, 이는 대사 질환의 한 측면으로 볼 수 있습니다. 암과 관상동맥질환은 선진국에서의 주요 사망 원인입니다. 2030년까지 EU만으로도 약 2억 명 (총 인구의 33%)이 비만일 것으로 예상되며, 이들 많은 사람들 중 많은 사람들이 당뇨병, 고혈압, 심장 질환 및 암의 위험이 높아지며, 직접적인 (의료 치료) 및 간접적인 (일할 수 없음) 비용은 연간 1000억 유로 이상으로 추정됩니다. 이러한 종류의 질병에 관여하는 분자 메카니즘은 복잡하며, 많은 경우 다른 underlying molecular causes가 동일한 질병 phenotypes로 이어집니다. 다양한 인간 세포 유형, 전체 조직 및 그들 사이의 상호 작용에 대한 인간 대사의 좋은 이해는 따라서 이러한 질병의 효과적인 진단 및 치료를 위한 필수적인 단계입니다. 그러나 대사는 복잡하며, 공통 대사 물질을 공유함으로써 강하게 상호 연결된 매우 많은 개별 반응을 포함합니다. 대사의 기능을 이해하기 위해서는 완전한 대사 네트워크를 분석하는 것이 가장 좋으며, 이는 이른바 유전체 규모 대사 모델(GEMs)을 사용하여 가장 잘 수행됩니다.</p>
+<p>현재 세 가지의 일반적인 인간 유전체 규모 대사 네트워크가 사용 가능합니다.</p>
+<p>Recon1, 에든버러 인간 대사 네트워크(EHMN) 및 HumanCyc입니다. 그러나 이러한 재구성은 조직 특이적이지 않으므로 특정 인간 세포 유형 또는 질병의 연구에 적용할 수 없습니다.</p>
+<p>Tissue specific transcription profiles를 사용하여 10가지 다른 인간 조직에 대한 조직 특이적 모델을 생성했으며, 이는 Recon1의 하위 집합입니다. 그러나 이러한 네트워크는 다양한 유전적 및 생리적 조건 하에서 조직의 대사 상태를 탐색하기에 충분히 유연하지 않았습니다. 동일한 그룹은 나중에 다른 알고리즘을 제안하여 전사체 및 단백질체 데이터를 결합하여 보다 유연한 간 단백질 특이적 대사 모델을 생성했으며, 이때도 Recon1을 템플릿으로 사용했습니다.</p>
+<p>언급된 자동 생성 모델 외에도, 광범위한 노력으로 수동으로 재구성 및 주석이 달린 간 특이적 대사 모델인 HepatoNet1이 발표되었습니다. 신장, 뇌, 적혈구 및 폐포 매크로페이지에 대한 모델도 개발되었습니다. Cell type specific metabolic models을 구축하는 데 사용되는 계산 방법은, particular cell에서 대사 효소의 존재 또는 부재에 대한 증거를 통합하려고 시도하며, 동시에 잘 연결된 네트워크를 유지하려고 합니다(예: 한 반응에서 소비된 대사물질은 다른 반응에서 생산되거나 세포 환경으로부터 흡수될 수 있어야 함). Transcriptome 데이터는 종종 노이즈가 있으며, mRNA 발현의 차이는 절대적이 아니라 reference condition에 상대적이며, 대부분의 경우 효소 수준과 잘 관련되지 않습니다. Human Protein Atlas(HPA)의 범위 내에서 type에 대한 고품질 단백질 데이터가 특정 항체를 기반으로 생성되고 있으며, 이는 서로 다른 인간 세포 유형에서 단백질 증거에 대한 필수적인 소스입니다.</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\init2.PNG" alt=""></p>
+<pre><code>Figure 2. INIT 알고리즘의 원리 개괄. 
+
+GEMs의 계층적 구조는 그 유전자-전사체-단백질-반응(GTPR) 연관성에 의해 특징 지어집니다. GEMs에서 각 대사 반응은 하나 이상의 효소와 연관되어 있으며, 이 효소는 차례로 전사체와 유전자에 연관되어 있습니다. 특정 효소/유전자의 존재/부재에 대한 증거에 따라 해당 효소가 촉매하는 반응에 대한 점수를 계산할 수 있습니다. HPA 증거 점수는 부정적인 증거, 약한 증거, 중간 증거 및 강력한 증거를 나타내는 붉은색, 연두색, 연두색 및 짙은 녹색으로 표시됩니다. 전사체 증거 점수(GeneX)는 낮은, 중간 및 높은 발현을 나타내는 붉은색, 연두색, 연두색 및 짙은 파랑으로 표시됩니다. 흰색 개체는 증거가 없음을 나타냅니다. 일부 대사물질(노란색 채워진 원)의 경우 해당 세포 유형에 존재한다는 것을 증명하기 위해 대사체 데이터가 사용 가능합니다. 알고리즘의 목표는 해당 세포 유형에서의 존재를 지지하는 강력한 증거를 가진 관련된 유전자/단백질이 있는 하위 네트워크를 찾는 것입니다. 이는 증거 점수의 합을 최대화함으로써 수행됩니다. 포함된 모든 반응은 플럭스를 운반할 수 있어야 하며, 실험적으로 관찰된 모든 대사물질은 세포가 흡수하는 전구체에서 합성되어야 합니다. 굵은 선은 최적화 후의 결과 네트워크를 나타냅니다.
+</code></pre>
+<p>여기서는 세 cell type specific genome-scale metabolic networks를 자동으로 식별하는 파이프라인을 제시합니다(그림 1). 이 파이프라인의 주요 요소는 INIT(조직을 위한 통합적인 네트워크 추론) 알고리즘(그림 2)으로, 이 <strong>알고리즘은 각각 HPA에 포함된 인간 세포 유형마다 대사 효소의 존재 여부를 평가하기 위한 주요 증거 원천으로 HPA를 의존</strong>합니다. <strong>INIT에서 Tissue specific gene expression은 추가 증거 원천으로 사용</strong>되었습니다. 인간 대사물질 데이터베이스(HMDB)의 대사물질 데이터도 사용되는데, 이는 특정 조직에서 대사물질이 발견된 경우 해당 네트워크가 간단한 precursors로부터 이 대사물질을 생성할 수 있도록 제약 조건으로 사용됩니다. 더 자세한 내용은 방법 설명서에서 찾을 수 있습니다.</p>
+<p>우리의 <strong>분석 결과는 HPA에서 프로파일링된 각 세포 유형에 대한 세포 유형별 대사 네트워크</strong>입니다. HPA와 유전자 발현 데이터를 사용하기 때문에 우리의 네트워크는 각 세포 유형에서 표현될 수 있는 완전한 대사 네트워크를 대표하지 않습니다. 대신 <strong>표현되는 대사 네트워크의 일부</strong>이며, 따라서 활성일 가능성이 있는 <strong>네트워크의 일부만을 대표</strong>합니다.</p>
+<p>우리의 조직/세포 유형별 대사 네트워크를 위한 신뢰할 수 있고 최신의 유전체 규모 모델 템플릿을 제공하기 위해, 먼저 이전에 출판된 일반적인 인간 유전체 규모 대사 모델의 요소 및 KEGG 데이터베이스를 포함하는 Human Metabolic Reaction(HMR) 데이터베이스를 구축했습니다. 이 HMR 데이터베이스는 www.metabolicatlas.com에서 공개적으로 이용 가능하며, KEGG나 MetaCyc에 새로운 반응이 추가되거나 HPA나 다른 데이터베이스에서 더 많은 단백질의 발현 프로파일이 제공될 때 주기적으로 업데이트될 것입니다.</p>
+<p>우리의 파이프라인이 신뢰할 수 있는 조직 특이적 대사 네트워크를 생성하는 능력을 평가하기 위해, <strong>간세포에 대한 생성된 대사 모델을 고품질의 수동으로 정리되고 주석이 달린 모델인 HepatoNet1과 비교</strong>했습니다. 건강한 인간 세포 유형과 암에 해당하는 다양한 활성 대사 네트워크의 가용성은 암과 건강한 세포 유형 간의 비교 분석을 통해 암 특이적 대사 특징을 식별하여 잠재적인 약물 타깃을 찾을 수 있도록 합니다.</p>
+<h2 id="resultsdiscussion">Results/Discussion</h2>
+<h3 id="database-construction">Database Construction</h3>
+<p>조직 특이적 활성 대사 네트워크를 추론하기 위한 기존 방법은 Recon1을 기준으로만 사용해왔습니다. 다른 정보 원천을 통합하기 위해 우리는 Human Metabolic Reaction(HMR) 데이터베이스를 구축했습니다. 이 데이터베이스에는 기존의 두 개의 유전체 규모 대사 모델인 Recon1과 EHMN을 포함하여 HumanCyc 및 KEGG의 정보를 통합했습니다. HMR 데이터베이스는 유전자가 맨 위에 있으며 Su 등의 보고서 [21]에 따른 조직 특이적 발현 프로파일에 대한 정보를 BioGPS [24]를 통해 연결합니다.</p>
+<p>각 유전자는 다양한 스플라이싱 변형과 이에 해당하는 단백질에 연결됩니다. 각 단백질은 HPA 데이터베이스 [18]에서 조직 특이적 풍부도와 그들이 촉매하는 반응에 연결되어 있습니다. 반응은 자체적으로 HMDB [22]에서 수집된 조직 특이적 정보에 연결된 대사물질과 연결됩니다. HMR 데이터베이스는 미래의 유전체 규모 인간 대사 재구성에 포함된 새로운 반응뿐만 아니라 미래의 HPA, HMDB 및 새롭게 발표된 특정 전사체 데이터의 새로운 증거를 포함하여 정기적으로 업데이트될 것입니다. HMR 데이터베이스의 구축 및 정제에 대한 세부 정보는 방법 섹션에서 확인할 수 있습니다. INIT 알고리즘은 연결된 템플릿 인간 대사 모델을 입력으로 필요로 합니다. 이 템플릿 모델은 HMR에서 생성되었습니다. 템플릿 모델은 4,137개의 대사물질(3,397개의 고유한 대사물질) 및 5,535개의 반응(4,144개의 고유한 반응)을 포함하며, 이는 1,512개의 대사 유전자에 연결되어 있습니다. 이 템플릿 모델은 iHuman1512로 참조됩니다.</p>
+<h3 id="generation-of-69-tissue-specific-and-16-cancer-type-specific-genome-scale-active-metabolic-networks">Generation of 69 tissue specific and 16 cancer type specific genome-scale active metabolic networks</h3>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\init3.PNG" alt=""></p>
+<pre><code>Figure 3. 우리의 간세포 모델과 HepatoNet1 간의 유전자 내용 비교. 
+
+벤 다이어그램은 세 모델 간 포함된 유전자의 중첩을 나타냅니다. 파란색, 녹색, 빨간색 사각형은 각각 iHuman1512, 우리의 간세포 모델인 iHepatocyte1154 및 HepatoNet1을 나타냅니다. 벤 다이어그램의 각 부분의 증거 점수 분포가 플롯되어 있습니다. HPA 증거 점수는 부정적, 약한, 중간 및 강한 발현을 나타내는 붉은색, 연두색, 연두색 및 짙은 녹색으로 표시됩니다. 전사체 증거 점수(GeneX)는 붉은색, 연두색, 연두색 및 짙은 파랑으로 표시되며 각각 낮은, 중간 및 높은 발현을 나타냅니다. 증거 없음(NE)은 회색으로 표시됩니다.
+</code></pre>
+<p>INIT 알고리즘을 사용하여 69가지 다른 세포 유형 및 16가지 암에 대한 유전체 규모의 활성 네트워크가 자동으로 생성되었습니다. 생성된 활성 대사 네트워크는 SBML [25] 형식으로 제공되며 www.metabolicatlas.com에서 이용 가능합니다.</p>
+<p>생성된 조직 특이적 모델은 다양한 조직에서 감지된 효소를 포함하는 BRENDA [26] 컬렉션과 비교되었습니다. R 통계 소프트웨어를 사용하여 초채표 검정을 수행했습니다. 보고된 p-값은 해당 BRENDA 항목과 동일한 크기의 무작위 대사 유전자 집합과 관찰된 오버랩보다 높은 확률입니다. 표 S1에서 확인할 수 있듯이, 우리 알고리즘에 의해 생성된 모델과 BRENDA 간의 모든 비교는 5e-4보다 낮은 p-값의 오버랩을 보였습니다. 우리의 컴퓨터 기반 간 모델(iHepatocyte1154)은 1e-200의 p-값을 보여줍니다. 이는 수동으로 재구성된 HepatoNet1과 BRENDA 간의 비교에서 얻은 값과 유사합니다. iHepatocyte1154의 유전자 중 55%가 BRENDA에 포함되어 있으며, HepatoNet1의 유전자 중 43%만이 BRENDA에 포함되어 있습니다. 상대적으로 높은 p-값은 BRENDA에 매우 적은 주석이 있는 조직들에 대한 것입니다.</p>
+<p>우리의 알고리즘의 결과를 유효성 검사하기 위해, 우리의 자동 생성 간세포 모델을 간세포 대사의 수동으로 정제되고 기능적인 모델인 HepatoNet1 [12]과 비교했습니다. 반응 유사성에 대한 모호한 결정을 피하기 위해 <strong>유전자 수준에서 비교</strong>를 실시했습니다. <strong>각 모델에 포함된 유전자 목록 간의 중첩은 Figure 3에 표시</strong>되었습니다. 우리의 간세포 모델(iHepatocyte1154)에는 1,154개의 유전자가 포함되어 있으며, <strong>이 중 452개가 HepatoNet1에도 포함되어 있고 702개가 없습니다</strong>. 이러한 702개의 추가 유전자의 발현 및 번역에 대한 증거는 HepatoNet1과 같이 포함된 452개의 유전자에 대한 증거와 거의 동일하며, <strong>대부분의 702개의 추가 유전자의 존재가 우리의 알고리즘에 의해 올바르게 추론되었다고 확신합니다.</strong> HepatoNet1 네트워크에는 iHepatocyte1154에 포함되지 않은 261개의 유전자가 포함되어 있으며, 이 중 156개는 초기 연결된 인간 네트워크에서 부재했습니다. <strong>따라서 우리의 알고리즘은 이러한 유전자들을 간세포 하위 네트워크에 할당할 수 없었으며, 그들의 존재는 사용된 입력 데이터의 한계를 보여주는 것이며 우리의 알고리즘의 한계가 아닙니다.</strong> 이 중 80개의 유전자는 HMR에 없었지만, 더 자세한 조사 결과, 이 중 대부분(62개)은 HMR에 실제로 존재했지만 다른 또는 없는 유전자 연관이 있었습니다. 나머지 18개의 유전자 중 13개는 간세포의 혈관 유형인 부정맥 공간으로의 운반체를 인코딩하며, 따라서 간세포의 일부가 아닙니다.</p>
+<p>iHuman1512에 없는 다른 76개의 유전자 및 이에 해당하는 반응은 불균형, 연결되지 않음 또는 기타 문제 때문에 제거되었습니다. HepatoNet1에 포함되어 있고 iHuman1512에 있지만 우리의 알고리즘에 의해 간세포 특이적 네트워크로 할당되지 않은 105개의 유전자도 있습니다. 이 유전자들은 237개의 반응에 해당하며, 이 중 132개는 여전히 iHepatocyte1154에 존재하며 다른 이소효소에 연결되어 있습니다. 간세포에서 이러한 105개의 유전자의 존재에 대한 실험 증거는 대부분 약하거나 부정적이며, 심지어 우리의 알고리즘이 거부한 253개의 유전자에 대한 증거보다 조금 나쁘기도 합니다. 따라서 이러한 105개의 유전자가 올바르게 거부되었다고 확신할 수 있습니다. 이는 특정 세포 유형에서 효소 이소효가 다르게 발현될 수 있기 때문에 GEM을 재구성할 때 세포 유형별 데이터를 사용하는 중요성을 보여줍니다. 위의 내용에 따라 우리는 간세포 특이적 대사 네트워크와 HepatoNet1 간의 불일치가 우리의 알고리즘에 의해 내려진 선택을 지지하는 실험 증거와 함께 나타난다는 결론을 내릴 수 있습니다.</p>
+<p>마지막으로, 69개의 조직 및 16개의 대사 네트워크를 공유 대사 유전자의 유사성에 따라 군집화했습니다. R 통계 소프트웨어에 구현된 평균 연결과 다중 스케일 부트스트랩 리샘플링을 사용하여 비지도 계층적 군집화를 실시했습니다(10,000 회 반복) [27] (Figure S1 참조). 군집화는 예상대로 세포 해부에 기초한 밀접한 관련된 세포 유형의 지역적 그룹화를 보여줍니다(예: 붉은색 골수와 백색 골수는 함께 군집됩니다). 흥미로운 점은 암종이 세 가지 다른 클러스터로 분리되어 있다는 것인데, 하나는 간, 대장, 유방 및 자궁내막 암을 포함하고, 더 작은 클러스터에는 자궁경부와 머리 암을 포함하고, 나머지 열 가지 암을 포함한 세 번째 클러스터가 있습니다. 또한 각각의 세포 또는 암 유형에 고유한 반응이 189개(총 반응 수의 4.1%)로, 모든 세포에 공통된 501개의 반응(총 반응 수의 11.0%)으로 나타납니다. Figure S2는 모델에서 중요한 대사 경로의 풍부성을 보여줍니다.</p>
+<h3 id="identification-of-cancer-specific-metabolic-features">Identification of cancer specific metabolic features</h3>
+<p>20세기 초에 관찰된 바울부르크 효과 이후로 암세포는 건강한 세포와는 다른 대사적 특징을 나타내는 것으로 알려져 있습니다 [28]. 이러한 대사적 독특성은 암 증식에 대한 잠재적인 약제 타겟을 식별하기 위해 일반적인 암 유전체 규모 대사 모델의 개발을 정당화했습니다 [29]. 이 연구에서는 16가지 다른 암종에 대한 활성 대사 네트워크를 추론하였으며, 이는 그들이 비롯된 24가지 건강한 세포 유형과 비교될 수 있습니다 (일부 암종과 관련된 조직에는 여러 건강한 세포 유형이 있습니다). 이 비교는 암의 특성적인 대사적 특징을 파악하기 위한 것입니다. 초채표 검정을 사용하여 대부분의 암 특이적 활성 대사 네트워크에서 나타나는 유전자 및 반응을 식별하고 원래의 대부분의 건강한 세포 유형에서는 나타나지 않는 것입니다 (표 S5 및 S6 참조). 초채표 검정에서 얻은 p-값은 암세포의 대사에 중요하게 관여하는 기능성 대사체[30]를 식별하는 데 사용되었습니다 (표 S7 참조). p-값이 1e-4보다 낮은 암 특이적 활성 대사 네트워크에서 풍부하게 나타나는 유전자, 반응 및 대사체 세트는 부록 자료에 나열되어 있습니다. 이러한 유전자, 반응 및 대사체 목록은 암세포의 특정 증식 역할을 하는 것으로 예상되는 암 특이적 특성이며, 잠재적인 약제 타겟이 될 수 있습니다. 우리의 두 개의 활성 대사 네트워크 세트 간의 비교 분석은 고속 가설 생성 방법으로 볼 수 있습니다. 이 가설들은 암과 특정 단백질의 존재 사이의 단순한 상관 관계에 기반한 것이 아니라 대사 네트워크의 기저 구조에 기반하고 있으며, 따라서 우리의 분석은 각 식별된 특성이 암의 증식에 미칠 가능성에 대한 메커니즘적 해석을 제공합니다.</p>
+<p>리포터 메타볼라이트 분석에서 가장 중요한 결과 중 하나는 암세포에서 스페르미딘, 스페르민 및 푸트레신과 같은 폴리아민스(PAs)의 대사가 훨씬 뚜렷하다는 것입니다. PAs는 산화 스트레스 예방 및 괴사 억제와 관련된 여러 가지 역할을 합니다 [31]. PAs는 빠르게 증식하는 세포에게 특히 중요하다고 오랫동안 알려져 왔으며, 이에 따라 그들의 수송 및 합성이 항암 약제 타겟으로 철저히 조사되었습니다 [32]. PA 합성 경로에서 단일 효소의 억제는 시스템의 광범위한 규제 및 암세포에 의한 외부 PAs의 사용으로 인해 실망스러운 결과를 가져왔습니다. 대신 제2 세대 약물은 수송 체계를 타겟팅하거나 PAs 자체와의 구조적 유사성에 의해 작용하거나 다른 비정형 약물을 PAs에 결합시킴으로써 작용합니다 [33].</p>
+<p>리포터 메타볼라이트 중 하나로 두 번째로 중요한 대상은 이소프레노이드 생합성 경로, 특히 중간체 게랄닐게랄닐 다이포스페이트입니다. 이 메타볼라이트는 Ras 및 Rho GTPase와 같은 중요한 암 단백질의 프레닐레이션 역할 때문에 암촉진 사건을 촉진한다는 것이 입증되었습니다 [34]. 따라서 프레닐레이션 과정이나 게랄닐게랄닐 다이포스페이트의 생합성을 타겟으로 하는 여러 약물이 개발되었습니다 [35, 36].</p>
+<p>리포터 메타볼라이트 중 세 번째로 주목할 만한 그룹은 프로스타글란딘 및 르코트리엔과 중간체 HPETE입니다. 이 자가크린 화합물들은 아라키돈산에서 합성되며 염증과 관련하여 증가합니다. 그들은 전이를 촉진하고 면역 체계를 영향을 주어 암 진행에 도움이 되었다는 것이 입증되었습니다 [37]. 특히 프로스타글란딘 E2의 경우 합성 및 분해가 유망한 약물 개발 대상으로 조사되었습니다 [38].</p>
+<p>식별된 많은 타깃이 잘 알려진 약제 타깃과 일치한다는 사실은 이 방법이 생물학적으로 유의한 가설을 생성할 수 있는 능력을 갖추고 있다는 것을 나타냅니다. 특히 현재 암 치료에서 타깃으로 삼지 않는 리포터 메타볼라이트가 특별히 흥미롭습니다. 가장 높은 점수를 받은 리포터 메타볼라이트 중에는 빌리버딘과 빌리루빈이 있습니다 (그림 4 참조). 빌리버딘 환원효소와 이 효소가 촉매하는 반응은 암 네트워크에서 가장 풍부하게 발현된 유전자와 반응 중에 포함되어 있습니다. 빌리버딘 환원효소는 산화 스트레스에 대한 주요 생리학적 세포 보호제임이 알려져 있습니다 [39]. 암세포는 페로시소메에서 발생하는 폴리아민스의 산화 및 아미노산 분해 생성물 기타 제품에 의해 생성되는 고산화 스트레스에 노출되는 것으로 알려져 있습니다. 빌리루빈은 과산화수소에 의해 빌리버딘으로 산화되고 그 후 빌리버딘 환원효소에 의해 다시 빌리루빈으로 환원됩니다. 이 메커니즘이 산화 스트레스의 주요 완화 시스템으로 입증되었으며 암 증식에 대한 잠재적인 타깃으로 고려될 수 있습니다. 페로시솜에서 발생하는 과산화수소 생성 반응 중 하나는 글리신 분해 중간체인 아미노아세톤을 메틸글리옥살로 변환하는 것입니다. 암세포에서 메틸글리옥살의 다른 출처는 글루코네오제네시스입니다 [40]. 메틸글리옥살은 독성 화합물로 알려져 있으며 [41], 일부 암세포 균주에서 세포자폐를 유도하는 것으로 입증되었습니다 [42]. 메틸글리옥살은 또한 우리의 상위 점수 리포터 메타볼라이트 중에 나타났으며 메틸글리옥살과 글루타티온을 락토일글루타티온으로 변환하는 효소인 락토일글루타티온 리아제의 유전자 및 관련 반응이 암 활성 대사 네트워크에서 가장 풍부하게 발현되었습니다. 락토일글루타티온은 또한 암 대사 네트워크에서 유의한 풍부성을 나타냈으며 (p-값 2e-3), 글루타티온 및 젖산으로 변환됩니다. 젖산은 암세포에서 잘 알려진 대사체입니다. 언급된 두 효소는 메틸글리옥살에 의해 생성된 독성을 완화하는데 중요한 역할을 하는 것으로 보이며 암 증식에 대한 잠재적인 약제 타깃이 될 수 있습니다. 이러한 효소를 타깃으로 삼는 것은 메틸글리옥살을 약물로 사용하는 것과 같은 효과를 암세포에 미치지만 메틸글리옥살의 건강한 조직에 대한 독성 효과가 없다는 장점이 있습니다.</p>
+<h3 id="conclusions-and-perspectives">Conclusions and perspectives</h3>
+<p>우리는 다양한 생물학적 증거를 통합하여 고품질의 세포 유형별 대사 네트워크를 생성할 수 있는 방법을 제시합니다. 이 방법을 사용하여 69가지 다른 인간 세포 유형 및 16가지 종류의 암에 대한 유전체 규모의 대사 네트워크를 생성했으며, 이는 인간 대사 지도를 구축하기 위한 첫걸음입니다. 이 지도는 조직 수준 및 유기체 수준의 대사 시뮬레이션을 수행할 수 있는 능력을 갖춘 인간 대사 모델을 더욱 발전시킬 수 있는 중심 포털이 될 수 있으며, 복잡한 질병에 대한 더 나은 이해를 가능케 할 것입니다. 인간 대사 지도는 의학 및 과학 커뮤니티에게 공개되어 개인 맞춤형 의학 개발에 있어 시스템 수준 분석을 기반으로 한 중요한 자원이 될 것입니다. 시스템 수준 분석의 한 예로 INIT 알고리즘을 사용하여 생성된 네트워크를 비교함으로써 실시한 암 특이적 대사 기능 식별이 있습니다.</p>
+<h2 id="methods">Methods</h2>
+<h3 id="database-construction-1">Database construction</h3>
+<p>대사물질과 반응을 명확하게 특성화하기 위해 KEGG 및 InChI 식별자가 사용되었습니다. 외부 데이터베이스에 대한 식별자가 없는 대사물질은 해당 반응과 함께 HMR 데이터베이스에서 제외되었습니다. 대사물질 식별자는 서로 다른 출처에서 온 두 반응이 동일한지를 추론하는 데 사용되었습니다. 각 반응은 HMR 데이터베이스에 포함된 여덟 개의 구획 중 하나 이상에 할당되었습니다: 핵, 세포질, 소포체, 골지 복합체, 페로소미, 리소소미, 미토콘드리아 및 세포외. 템플릿 모델에서 세포질 내 위치 정보가 없는 경우 HPA의 면역조직화학 염색을 통해 유추되었습니다. HPA에 없는 효소의 경우 Swiss-Prot 및 GO를 사용하여 위치를 추론했습니다 (데이터베이스 버전은 Table S8 참조). 식별자가 없는 화합물을 제거한 후 데이터베이스에는 여덟 가지 다른 구획에 대해 9,922개의 반응, 2,366개의 유전자 및 9,581개의 대사물질이 포함되었습니다(구획화를 고려하지 않을 때, 3,547개의 고유한 대사물질 및 6,319개의 고유한 반응이 포함됨). 이러한 대사물질 중 338개는 KEGG 식별자를 가지고 있지만 ‘‘Lipid’’ 또는 ‘‘2-oxoacid’’와 같은 일반적인 화합물입니다. 이러한 문제 있는 대사물질은 원자가 불균형인 반응을 유발할 수 있으므로, 이와 관련된 418개의 반응과 함께 제거되었습니다. 균형 잡히지 않거나 잘못된 스토이치오메트리를 가진 38개의 반응은 세심한 수작업 프로세스를 통해 균형 잡힌 버전으로 대체되었습니다. 많은 대사물질의 프로톤화 상태가 정의되지 않아서 발생하는 프로톤 균형 문제를 피하기 위해 모델에서는 프로톤의 자유 교환을 허용했습니다. 마지막으로, 어떠한 상황에서도 플럭스를 운반할 수 없는 반응은 제거되었습니다. 연결된 모델이 입력으로 필요하기 때문에 연결되지 않은 반응을 제거한 것입니다. 이러한 필터링 후에도 우리의 템플릿 모델에는 4,137개의 대사물질(3,397개의 고유한 대사물질) 및 5,535개의 반응(4,144개의 고유한 반응)이 포함되었으며, 이는 1,512개의 대사 유전자(Ensemble 유전자 목록을 기반으로 함)와 관련되어 있습니다. 이 템플릿 모델은 iHuman1512로 참조됩니다. 각 단계에서 유지된 유전자 수는 Table S9에 나열되어 있습니다. 많은 반응이 문헌 연구 또는 연결성을 위해 템플릿 네트워크에 포함되어 있으며, 일부 효소는 많은 반응을 촉매하고 일부 효소는 여러 구획에서 반응을 촉매하기 때문에 이러한 대사 네트워크에서 관찰되는 대규모 반응과 상대적으로 작은 수의 유전자의 차이는 크다는 점을 이유로 설명할 수 있습니다. iHuman1512와 몇 가지 출판된 인간 대사 네트워크 사이의 비교는 Table S10에 제공됩니다.</p>
+<h3 id="algorithm-for-the-generation-of-tissue-specific-models">Algorithm for the generation of tissue-specific models</h3>
+<p>이전에 일반 모델에서 조직 또는 특정 조건별 활성 대사 반응 집합을 얻기 위해 몇 가지 알고리즘이 개발되었습니다. 이 중 첫 번째 알고리즘은 유전자 발현 데이터를 입력으로 사용하는 Gene Inactivity Moderated by Metabolism and Expression (GIMME) 알고리즘이었습니다. 다른 두 개의 알고리즘은 특정 인간 조직별 대사 네트워크를 생성하기 위한 목적으로 개발되었습니다. 그 중 첫 번째는 Shlomi 및 공동 연구자들이 개발한 것으로, 트랜스크립토믹 데이터를 유일한 입력으로 사용했습니다. 두 번째 알고리즘은 동일한 저자들에 의해 개발되었으며, 인간 간세포에 대한 기능적 모델을 얻기 위해 메타볼로믹 및 프로테오믹 데이터를 통합할 수 있습니다.</p>
+<p>INIT (Integrative Network Inference for Tissues) 알고리즘은 혼합 정수 선형 문제(MILP)로 정의되어 있으며, HPA의 증거를 특히 맞춤화하여 사용합니다. 문제는 결과 모델의 모든 반응이 플럭스를 운반할 수 있도록 정의됩니다. 화합물당 계수를 포함하는 화합물당계수 행렬 S에 대해 각 내부 대사물질의 순 축적 또는 소비율 벡터를 반응율 벡터로 곱하면 각 내부 대사물질에 대한 순 축적 또는 소비율 벡터를 얻을 수 있습니다. 일반적으로 모든 내부 대사물질에 대한 정상 상태 조건을 부여하는 대신, 작은 양의 양의 순 축적율을 허용합니다. 대사물질의 순 생성은 최적화에서 양의 가중치가 부여됩니다. 이 선택의 이유는 NADH 또는 NADPH와 같은 분자의 합성만 가능한 네트워크를 가지는 것을 선호하기 때문입니다. 만약 대사물질이 세포 내에 존재한다면(HMDB에 따라), 해당 대사물질의 양의 순 생성은 대사물질의 합성에 필요한 모든 반응이 조직 특이 모델에 포함되도록 보장합니다.</p>
+<p>이 날짜까지 문헌에 인간 생물량 방정식이 없습니다 (예 : Recon1에는 마우스 생물량 방정식이 포함되어 있음). 반면, 박테리아와 달리 인간 세포는 세포 분열에 특히 약하거나 다른 대사 기능과 비교하여 천천히 세포 분열합니다. 이는 생물량 방정식이 암 세포의 모델링이 목적이 아닌 이상 생물량 방정식이 상대적으로 중요하지 않음을 의미합니다. 또한 인간 세포는 (암 세포를 제외하고) 환경에 분비되는 박테리아의 대사산물과는 달리 훨씬 다양한 화합물을 혈액으로 분비합니다. 따라서 우리는 모든 대사물질의 분비 (또는 축적)을 허용하는 네트워크를 생성하기로 선택했습니다. 더 엄격한 정상 상태 제약 조건을 사용했다면, 많은 반응이 막바지 대사물질로 이끌어지기 때문에 모델에서 제거되었을 것입니다. 이러한 최종 대사물질은 생물량에 추가되거나 혈류로 분비될 수 있으며, 따라서 대사물질의 분비 (또는 순 축적)를 허용함으로써 더 유연한 접근을 취했습니다.</p>
+<p>INIT에서 사용되는 MILP는 다음과 같이 지정될 수 있습니다:</p>
+<p><img src="file:///c:\Users\exima\OneDrive\바탕 화면\studium\DICN\papers\pictures\init.PNG" alt=""></p>
+<p>매개변수 e는 임의로 작은 양의 수입니다. 반응에 대응하는 이진 변수의 가중치는 해당 반응의 존재 여부에 대한 증거를 반영합니다. 해당 효소가 HPA에서 특성화되었을 때, 높음, 중간, 낮음 및 없음 단백질에 대한 wi 값으로 각각 20, 15, 10 및 28의 값을 사용했습니다. 이러한 점수는 임의로 선택되었으며, HPA에 나타나는 증거 색상 코드를 양적으로 표현하기 위해 선택되었습니다. 이러한 가중치의 변화에 대한 알고리즘의 민감도를 테스트했으며, 이를 20% 상하로 변형시켰을 때 알고리즘의 결과에는 매우 작은 변화만 있었습니다. 증거가 BioGPS [24]에서 검색된 유전자 발현 수준 및 공개 데이터 세트 'Human Body Index - Transcriptional Profiling' (GSE7307)에서 가져온 경우, 다음과 같이 계산된 가중치를 사용했습니다:</p>
+<p class="katex-block"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>w</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub><mo>=</mo><mn>5</mn><mi>log</mi><mo>⁡</mo><mo stretchy="false">(</mo><mfrac><mrow><mi>S</mi><mi>i</mi><mi>g</mi><mi>n</mi><mi>a</mi><msub><mi>l</mi><mrow><mi>i</mi><mo separator="true">,</mo><mi>j</mi></mrow></msub></mrow><mrow><mi>A</mi><mi>v</mi><mi>e</mi><mi>r</mi><mi>a</mi><mi>g</mi><msub><mi>e</mi><mi>i</mi></msub></mrow></mfrac><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">w_{i,j}=5\log(\frac{Signal_{i,j}}{Average_i})
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.7167em;vertical-align:-0.2861em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0269em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:2.2519em;vertical-align:-0.8804em;"></span><span class="mord">5</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="mopen">(</span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.3714em;"><span style="top:-2.314em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal">A</span><span class="mord mathnormal" style="margin-right:0.03588em;">v</span><span class="mord mathnormal" style="margin-right:0.02778em;">er</span><span class="mord mathnormal">a</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="mord mathnormal">na</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3117em;"><span style="top:-2.55em;margin-left:-0.0197em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">i</span><span class="mpunct mtight">,</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2861em;"><span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.8804em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p>유전자 i의 신호는 조직 j에서의 평균 신호로 나누어집니다. 특정 조직에서의 신호가 모든 조직의 평균보다 높으면 가중치는 양수가 되고, 낮으면 음수가 됩니다.
+여러 유전자 또는 단백질과 관련된 반응의 경우 가장 높은 증거 점수가 사용됩니다. 특정 반응에 유전자가 연관되지 않거나 단백질 또는 전사체 증거가 없는 경우, 증거가 없는 반응을 추가하지 않고 네트워크를 가능한 한 간결하게 유지하기 위해 가중치 22가 사용됩니다. 여러 유전자에 연결된 반응이 최종 조직 특이 네트워크에 추가되면, 양수 증거 점수를 가진 유전자만 조직 특이 반응-유전자 관계에 유지됩니다.
+MILP 문제는 MOSEK (<a href="http://www.mosek.com">www.mosek.com</a>) 및 해당 Matlab 인터페이스를 사용하여 해결되었습니다.</p>
+
+            <script async src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+            
+        </body>
+        </html>
