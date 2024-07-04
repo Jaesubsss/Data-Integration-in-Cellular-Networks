@@ -166,3 +166,5 @@ E. coli의 경우, 우리는 Davidi와 동료들이 수집한 데이터셋을 �
 3. 각 단백질은 이러한 control coefficient에 따라 순위를 매깁니다. control coefficient가 높은 순서대로 정렬됩니다.
 4. 이제 control coefficient가 가장 높은 첫 번째 단백질에 대해 BRENDA 데이터베이스에서 이 단백질에 대한 최대 turnover number 값을 찾습니다.
 5. 이 과정을 남은 단백질에 대해서도 반복합니다. 다음 단백질에 대해 turnover number를 증가시켜 예측된 생장 속도가 조건에서 측정된 특정 성장률보다 최대 10% 작거나, 새로운 kcat 값이 문제 해결을 강력하게 제한하는 것을 찾을 때까지 반복합니다.
+
+$$\min_{v,\delta,\omega}\frac{1}{|C|}\sum_{j\in C}\omega_j + \frac{\lambda}{|M|}\sum_{i\in M}\delta_i$$
